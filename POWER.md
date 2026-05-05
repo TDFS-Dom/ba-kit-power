@@ -1,3 +1,11 @@
+---
+name: "ba-kit-power"
+displayName: "BA-kit Power"
+description: "Build full-stack BA deliverables with structured lifecycle, templates, and quality gates — intake → backbone → FRD → stories → SRS → wireframe handoff → package"
+keywords: ["business analysis", "BA", "requirements", "SRS", "FRD", "user stories", "use cases", "wireframe", "intake", "backbone", "stakeholder", "handoff", "specification"]
+author: "TDFS-Dom"
+---
+
 # BA-kit Power
 
 BA-kit biến Kiro thành một BA workstation có lifecycle rõ ràng, artifact có cấu trúc, và handoff chuẩn cho stakeholder/engineering.
@@ -147,6 +155,3 @@ designs/
 - UI baseline: Shadcn UI (overridden by project DESIGN.md)
 - Date format: `YYMMDD-HHmm`
 
-## Keywords
-
-business analysis, BA, requirements, SRS, FRD, user stories, use cases, wireframe, intake, backbone, stakeholder, handoff, specification
