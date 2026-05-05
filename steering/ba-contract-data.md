@@ -1,0 +1,120 @@
+---
+inclusion: manual
+---
+
+# BA-kit Contract Data (contract.yaml)
+
+Machine-readable contract. Load khi cần exact paths, prerequisites, defaults, states, resolution order, activation thresholds.
+
+```yaml
+version: 1
+defaults:
+  language: vi
+  date_token_format: "YYMMDD-HHmm"
+  mode: hybrid
+  ui_baseline: "Shadcn UI"
+
+states:
+  wireframe: [completed, skipped, not-applicable, missing]
+  delegation: [queued, running, completed, needs-repartition, blocked, failed]
+  heartbeat_minutes: 5
+  stall_after_minutes: 10
+
+paths:
+  project_root: "plans/{slug}-{date}"
+  source_cache_root: "plans/_source-cache/{source_hash}"
+  source_promoted_root: "plans/{slug}-{date}/00_source"
+  source_manifest: "plans/{slug}-{date}/00_source/manifest.json"
+  source_summary: "plans/{slug}-{date}/00_source/summary.md"
+  source_chunks_dir: "plans/{slug}-{date}/00_source/chunks"
+  project_home: "plans/{slug}-{date}/PROJECT-HOME.md"
+  design_root: "designs/{slug}"
+  compiled_root: "plans/{slug}-{date}/04_compiled"
+  delegation_root: "plans/{slug}-{date}/delegation"
+  collab_home: "plans/{slug}-{date}/COLLAB-HOME.md"
+  module_home: "plans/{slug}-{date}/03_modules/{module_slug}/MODULE-HOME.md"
+  review_packet: "plans/{slug}-{date}/delegation/review-packets/{module_slug}.md"
+  intake: "plans/{slug}-{date}/01_intake/intake.md"
+  plan: "plans/{slug}-{date}/01_intake/plan.md"
+  backbone: "plans/{slug}-{date}/02_backbone/backbone.md"
+  module_root: "plans/{slug}-{date}/03_modules/{module_slug}"
+  frd: "plans/{slug}-{date}/03_modules/{module_slug}/frd.md"
+  stories: "plans/{slug}-{date}/03_modules/{module_slug}/user-stories.md"
+  srs: "plans/{slug}-{date}/03_modules/{module_slug}/srs.md"
+  srs_group: "plans/{slug}-{date}/03_modules/{module_slug}/srs-group-{group}.md"
+  wireframe_input: "plans/{slug}-{date}/03_modules/{module_slug}/wireframe-input.md"
+  wireframe_map: "plans/{slug}-{date}/03_modules/{module_slug}/wireframe-map.md"
+  wireframe_state: "plans/{slug}-{date}/03_modules/{module_slug}/wireframe-state.md"
+  compiled_frd: "plans/{slug}-{date}/04_compiled/compiled-frd.html"
+  compiled_srs: "plans/{slug}-{date}/04_compiled/compiled-srs.html"
+  design_doc: "designs/{slug}/DESIGN.md"
+  project_memory: "plans/{slug}-{date}/02_backbone/project-memory.md"
+  memory_root: "plans/{slug}-{date}/02_backbone/project-memory"
+  memory_index: "plans/{slug}-{date}/02_backbone/project-memory/index.md"
+  memory_log: "plans/{slug}-{date}/02_backbone/project-memory/log.md"
+  memory_hot: "plans/{slug}-{date}/02_backbone/project-memory/hot"
+  memory_warm: "plans/{slug}-{date}/02_backbone/project-memory/warm"
+  memory_cold: "plans/{slug}-{date}/02_backbone/project-memory/cold"
+  memory_hot_vocabulary: "plans/{slug}-{date}/02_backbone/project-memory/hot/canonical-vocabulary.md"
+  memory_hot_decisions: "plans/{slug}-{date}/02_backbone/project-memory/hot/approved-decisions.md"
+  memory_hot_pushback: "plans/{slug}-{date}/02_backbone/project-memory/hot/pushback-triggers.md"
+  memory_module_warm: "plans/{slug}-{date}/02_backbone/project-memory/warm/modules/{module_slug}.md"
+  packet_root: "plans/{slug}-{date}/delegation/packets"
+
+patterns:
+  date_token: "^\\d{6}-\\d{4}$"
+  project_dir: "^(.+)-(\\d{6}-\\d{4})$"
+
+resolution:
+  slug_sources: [explicit, project_directories]
+  date_sources: [explicit, project_directory]
+  module_sources: [explicit, single_module_only]
+  strict_exact_match: true
+  never_use_mtime: true
+
+commands:
+  intake: { module_required: false, mutable: true, requires: [], outputs: [project_home, intake, plan] }
+  impact: { module_required: false, mutable: false, requires: [intake], outputs: [] }
+  backbone: { module_required: false, mutable: true, requires: [intake], outputs: [project_home, backbone, project_memory] }
+  frd: { module_required: true, mutable: true, requires: [backbone], outputs: [frd] }
+  stories: { module_required: true, mutable: true, requires: [backbone], outputs: [stories] }
+  srs: { module_required: true, mutable: true, requires: [backbone, stories], outputs: [srs, wireframe_input] }
+  wireframes: { module_required: true, mutable: true, requires: [wireframe_input], outputs: [design_doc, wireframe_map, wireframe_state] }
+  package: { module_required: false, mutable: true, requires: [], outputs: [compiled_frd, compiled_srs] }
+  status: { module_required: false, mutable: false, requires: [], outputs: [] }
+  next: { module_required: false, mutable: false, requires: [], outputs: [] }
+
+source_of_truth_order: [backbone, intake]
+next_step_order: [intake, backbone, frd, stories, srs, wireframes, package, status]
+
+routing:
+  impact:
+    scope_lock_change: intake
+    backbone_change: backbone
+    story_detail_change: stories
+    srs_behavior_change: srs
+    ui_impact_follow_up: wireframes
+
+memory:
+  compact_fallback: "active when only project_memory file exists and memory_root directory is absent"
+  index_role: "bounded navigator routing to shards and modules"
+  log_role: "optional append-only chronology; excluded from normal command reads"
+  cold_default: "never loaded by default; only via explicit escalation"
+  shard_tree_optional: true
+
+activation:
+  levels: [Base, Modular, Program]
+  default: Base
+  thresholds:
+    modular:
+      any_of:
+        - { signal: module_count, operator: gte, value: 2 }
+        - { signal: owner_count, operator: gte, value: 2 }
+    program:
+      any_of:
+        - { signal: cross_module_dependency, operator: equals, value: true }
+        - { signal: delegation_slice_count, operator: gte, value: 2 }
+        - all_of:
+            - { signal: owner_count, operator: gte, value: 2 }
+            - { signal: delegation_slice_count, operator: gte, value: 1 }
+```
