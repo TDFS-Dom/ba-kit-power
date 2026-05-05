@@ -21,7 +21,7 @@
 4. Chọn **"Install from GitHub"**
 5. Nhập URL repo:
    ```
-   https://github.com/phamquangviet891/ba-kit-power
+   https://github.com/TDFS-Dom/ba-kit-power
    ```
 6. Kiro sẽ tự động nhận diện `POWER.md` + thư mục `steering/` và cài đặt
 
@@ -29,12 +29,12 @@
 
 1. Clone repo vào thư mục powers của Kiro:
    ```bash
-   git clone https://github.com/phamquangviet891/ba-kit-power.git ~/.kiro/powers/ba-kit-power
+   git clone https://github.com/TDFS-Dom/ba-kit-power.git ~/.kiro/powers/ba-kit-power
    ```
 
 2. Hoặc clone vào workspace rồi link:
    ```bash
-   git clone https://github.com/phamquangviet891/ba-kit-power.git
+   git clone https://github.com/TDFS-Dom/ba-kit-power.git
    ```
 
 3. Restart Kiro — power sẽ xuất hiện trong danh sách Powers
@@ -137,7 +137,7 @@ designs/
 
 ## Nguồn gốc
 
-Power này được migrate từ [ba-kit](https://github.com/phamquangviet891/ba-kit) — bộ playbook BA đầy đủ hỗ trợ nhiều runtime (Claude Code, Codex, Antigravity). Power version tập trung vào Kiro IDE với steering-based architecture.
+Power này được migrate từ [ba-kit](https://github.com/TDFS-Dom/ba-kit) — bộ playbook BA đầy đủ hỗ trợ nhiều runtime (Claude Code, Codex, Antigravity). Power version tập trung vào Kiro IDE với steering-based architecture.
 
 ## License
 
