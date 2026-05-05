@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo.svg" alt="BA-kit Power" width="400"/>
+</p>
+
 # BA-kit Power for Kiro
 
 > Biến Kiro IDE thành một BA workstation có lifecycle rõ ràng, artifact có cấu trúc, và handoff chuẩn cho stakeholder/engineering.

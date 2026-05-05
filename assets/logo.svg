@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" fill="none">
+  <!-- Background pill -->
+  <rect x="0" y="0" width="400" height="120" rx="16" fill="#0f172a"/>
+  
+  <!-- Icon: document with checkmark -->
+  <rect x="28" y="24" width="52" height="72" rx="6" fill="#1e293b" stroke="#6366f1" stroke-width="2"/>
+  <line x1="40" y1="42" x2="68" y2="42" stroke="#475569" stroke-width="2" stroke-linecap="round"/>
+  <line x1="40" y1="54" x2="64" y2="54" stroke="#475569" stroke-width="2" stroke-linecap="round"/>
+  <line x1="40" y1="66" x2="60" y2="66" stroke="#475569" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="68" cy="78" r="12" fill="#6366f1"/>
+  <polyline points="62,78 66,82 74,74" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Text: BA-kit -->
+  <text x="100" y="62" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="38" font-weight="700" fill="#f8fafc">BA-kit</text>
+  
+  <!-- Text: Power -->
+  <text x="248" y="62" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="38" font-weight="300" fill="#6366f1">Power</text>
+  
+  <!-- Tagline -->
+  <text x="100" y="90" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="14" font-weight="400" fill="#94a3b8">Business Analysis Workstation for Kiro IDE</text>
+</svg>
