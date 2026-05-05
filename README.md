@@ -135,10 +135,6 @@ designs/
 - Không cần dependencies bên ngoài
 - Không cần MCP servers (trừ khi dùng `ba-notion` để publish lên Notion)
 
-## Nguồn gốc
-
-Power này được migrate từ [ba-kit](https://github.com/TDFS-Dom/ba-kit) — bộ playbook BA đầy đủ hỗ trợ nhiều runtime (Claude Code, Codex, Antigravity). Power version tập trung vào Kiro IDE với steering-based architecture.
-
 ## License
 
 MIT
